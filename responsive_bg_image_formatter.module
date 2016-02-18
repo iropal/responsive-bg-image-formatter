@@ -142,7 +142,7 @@ function responsive_bg_image_formatter_field_formatter_settings_form($field, $in
   );
 
   // Fieldset for media queries and image styles
-	for ($i=0; $i < 4; $i++) {
+	for ($i=0; $i < 3; $i++) {
 
 	  $element['css_settings']['media_settings'][$i] = array(
 	    '#type' => 'fieldset',
@@ -189,8 +189,12 @@ function responsive_bg_image_formatter_field_formatter_settings_summary($field, 
   $summary = array();
 
   $image_styles = image_style_options(FALSE);
+  
   // Unset possible 'No defined styles' option.
   unset($image_styles['']);
+  if (!isset($settings['css_settings']['media_settings'])) {
+    return t('No settings defined.');
+  }
   // Styles could be lost because of enabled/disabled modules that defines
   // their styles in code.
 	foreach($settings['css_settings']['media_settings'] as $value) {
